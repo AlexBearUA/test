@@ -54,7 +54,7 @@ class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-    const filteredCintacts = this.getFilteredContacts();
+    const filteredContacts = this.getFilteredContacts();
     return (
       <div className={css.container}>
         <h1>Phonebook</h1>
@@ -66,7 +66,7 @@ class App extends Component {
           </>
         )}
         <ContactList
-          contacts={filteredCintacts}
+          contacts={filteredContacts}
           onDeleteContact={this.deleteContact}
         />
       </div>
