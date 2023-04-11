@@ -6,3 +6,18 @@
   flex-direction: column;
   gap: 15px;
 }
+
+/* ============================================= */
+
+.ContactListItem {
+  display: flex;
+  justify-content: space-between;
+}
+.ContactListItem button {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+.ContactListItem button:hover {
+  background-color: antiquewhite;
+}
