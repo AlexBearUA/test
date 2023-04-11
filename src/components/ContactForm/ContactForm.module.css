@@ -2,7 +2,7 @@
   width: 300px;
   padding: 40px;
   border: 1px solid black;
-  margin: 45px auto 0 auto;
+  margin: 0 auto 30px auto;
 
   display: flex;
   flex-direction: column;
