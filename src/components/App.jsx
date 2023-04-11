@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
+import { Filter } from './Filter/Filter';
 import css from './App.module.css';
 
 class App extends Component {
@@ -16,6 +17,16 @@ class App extends Component {
   };
 
   addContact = userData => {
+    const { contacts } = this.state;
+    const isInContacts = contacts.find(
+      contact => contact.name.toLowerCase() === userData.name.toLowerCase()
+    );
+
+    if (isInContacts) {
+      alert(`${userData.name} is already in contacts`);
+      return;
+    }
+
     const contact = { ...userData, id: nanoid() };
     this.setState(({ contacts }) => ({
       contacts: [contact, ...contacts],
@@ -32,8 +43,18 @@ class App extends Component {
     this.setState({ filter: e.currentTarget.value });
   };
 
+  getFilteredContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
   render() {
     const { contacts, filter } = this.state;
+    const filteredCintacts = this.getFilteredContacts();
     return (
       <div className={css.container}>
         <h1>Phonebook</h1>
@@ -41,17 +62,13 @@ class App extends Component {
         {contacts.length !== 0 && (
           <>
             <h2>Contacts</h2>
-            <label>
-              Find contacts by name
-              <input
-                type="text"
-                value={filter}
-                onChange={this.changeFilter}
-              ></input>
-            </label>
+            <Filter value={filter} onChange={this.changeFilter} />
           </>
         )}
-        <ContactList contacts={contacts} onDeleteContact={this.deleteContact} />
+        <ContactList
+          contacts={filteredCintacts}
+          onDeleteContact={this.deleteContact}
+        />
       </div>
     );
   }
